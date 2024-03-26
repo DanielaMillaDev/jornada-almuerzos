@@ -36,3 +36,7 @@ El proyecto se divide en varios microservicios, cada uno con una funcionalidad e
 
 2. **Ejecutar contenedor Docker**: Para iniciar el proyecto ejecutar
    docker-compose up d 
+3. Acceder a la Aplicación: Una vez que los contenedores estén en ejecución, puedes acceder a la aplicación desde tu navegador utilizando la dirección proporcionada.
+
+### Dirección en Vivo
+Puedes probar la aplicación en vivo en la siguiente dirección: http://52.91.206.98:8080/pedidos.

@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" 
+    volumes:
+      - ./frontend:/src  
+      - /src/node_modules  
+
+  servicio_gestion_bodega:
+    build:
+      context: ./backend/servicio-gestion-bodega 
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    depends_on:
+      - mysql_db
+
+  servicio_gestion-cocina:
+    build:
+      context: ./backend/servicio-gestion-cocina
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+      
+    depends_on:
+      - mysql_db
+
+  servicio_gestion-mercado:
+    build:
+      context: ./backend/servicio-gestion-mercado
+      dockerfile: Dockerfile
+    ports:
+      - "3004:3004"
+    depends_on:
+      - mysql_db      
+
+  servicio_gestion_pedidos:
+    build:
+      context: ./backend/servicio-gestion-pedidos 
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mysql_db
+
+
+  mysql_db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: my_password
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database:/var/lib/mysql
+      - ./bd-scripts:/docker-entrypoint-initdb.d

@@ -129,7 +129,7 @@ async function verHistorialPedidos() {
                 FROM pedido p
                 INNER JOIN plato i ON i.id_pedido = p.id_pedido
                 INNER JOIN recetas r ON r.id_receta = i.id_receta
-                WHERE p.id_estado = 3`;
+                WHERE p.id_estado IN(3,4)`;
 
     const [rows] = await connection.execute(sql);
 
